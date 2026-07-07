@@ -21,7 +21,8 @@ class AppServiceProvider extends ServiceProvider
         Model::preventSilentlyDiscardingAttributes(! app()->isProduction());
 
         if (app()->isProduction()) {
-            URL::forceScheme('https');
+	    URL::forceRootUrl(config('app.url'));
+	    URL::forceScheme('https');           
         }
 
         RouteBinding::register();

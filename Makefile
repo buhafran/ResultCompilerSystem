@@ -1,17 +1,33 @@
-.PHONY: up down logs shell test lint mobile-install mobile-start
-up:
-	docker compose --env-file deploy/.env -f deploy/docker-compose.yml up -d --build
+COMPOSE := docker compose --env-file deploy/.env -f deploy/docker-compose.yml
+
+.PHONY: up build start down restart logs ps shell migrate clear
+
+build:
+	$(COMPOSE) build app
+
+up: build
+	$(COMPOSE) up -d --no-build
+
+start:
+	$(COMPOSE) up -d --no-build
+
 down:
-	docker compose --env-file deploy/.env -f deploy/docker-compose.yml down
+	$(COMPOSE) down
+
+restart: down up
+
 logs:
-	docker compose --env-file deploy/.env -f deploy/docker-compose.yml logs -f --tail=150
+	$(COMPOSE) logs -f --tail=200
+
+ps:
+	$(COMPOSE) ps
+
 shell:
-	docker compose --env-file deploy/.env -f deploy/docker-compose.yml exec app sh
-test:
-	docker compose --env-file deploy/.env -f deploy/docker-compose.yml exec app php artisan test
-lint:
-	find backend/app backend/bootstrap backend/config backend/database backend/routes -name '*.php' -print0 | xargs -0 -n1 php -l
-mobile-install:
-	cd mobile && npm install && npx expo install --fix
-mobile-start:
-	cd mobile && npx expo start
+	$(COMPOSE) exec app sh
+
+migrate:
+	$(COMPOSE) exec app php artisan migrate --force
+
+clear:
+	$(COMPOSE) exec app php artisan optimize:clear
+
