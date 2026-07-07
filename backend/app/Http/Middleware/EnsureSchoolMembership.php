@@ -16,7 +16,7 @@ class EnsureSchoolMembership
         $user = $request->user();
 
         abort_unless($school && $user, 401, 'Authentication required.');
-        abort_unless($user->is_super_admin || canAccessTenant($school), 403, 'You do not belong to this school.');
+        abort_unless($user->is_super_admin || $user->canAccessTenant($school), 403, 'You do not belong to this school.');
 
         $user->forceFill(['last_school_id' => $school->id])->saveQuietly();
         return $next($request);
