@@ -829,7 +829,7 @@
     ),
     'gemini' => 
     array (
-      'key' => '',
+      'key' => 'AQ.Ab8RN6LCZThS8QFH80Nvi9QTwClKnVBekm-mumISW_HvlTAYpA',
       'model' => 'gemini-2.5-flash',
       'enabled' => true,
     ),
