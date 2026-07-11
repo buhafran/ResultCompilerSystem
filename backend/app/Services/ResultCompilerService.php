@@ -52,7 +52,7 @@ final class ResultCompilerService
 
             $this->createMissingSheets($school, $term, $class, $students, $subjectIds);
             $entries = ResultEntry::query()
-                ->with(['student:id,first_name,middle_name,last_name,admission_number,gender', 'subject:id,name,code'])
+                ->with(['student:id,first_name,middle_name,last_name,admission_number,gender,photo_path', 'subject:id,name,code,subtitle'])
                 ->where('school_id', $school->id)
                 ->where('academic_term_id', $term->id)
                 ->where('school_class_id', $class->id)
@@ -220,6 +220,7 @@ final class ResultCompilerService
             $subjectRows = $studentEntries->map(fn (ResultEntry $entry) => [
                 'subject' => $entry->subject->name,
                 'subject_code' => $entry->subject->code,
+                'subject_subtitle' => $entry->subject->subtitle,
                 'ca_score' => $entry->ca_score !== null ? (float) $entry->ca_score : null,
                 'exam_score' => $entry->exam_score !== null ? (float) $entry->exam_score : null,
                 'total_score' => $entry->total_score !== null ? (float) $entry->total_score : null,
@@ -242,8 +243,9 @@ final class ResultCompilerService
                 'snapshot' => [
                     'schema_version' => 1,
                     'school' => ['name' => $school->name, 'motto' => $school->motto, 'address' => $school->address, 'logo_path' => $school->logo_path, 'principal_name' => $school->principal_name, 'principal_signature_path' => $school->principal_signature_path],
-                    'student' => ['admission_number' => $student->admission_number, 'name' => $student->full_name, 'gender' => $student->gender],
+                    'student' => ['admission_number' => $student->admission_number, 'name' => $student->full_name, 'gender' => $student->gender, 'photo_path' => $student->photo_path],
                     'academic' => ['session' => $term->academicSession->name, 'term' => $term->name, 'class' => $class->name],
+                    'settings' => ['show_class_position' => (bool) $school->setting('results.show_class_position', true)],
                     'subjects' => $subjectRows,
                     'summary' => ['total_score' => $total, 'average_score' => $average, 'subject_count' => $subjectCount, 'class_position' => null, 'class_size' => $students->count()],
                     'grading_scale' => GradeScale::from($school->setting('grading.scale'))->bands(),

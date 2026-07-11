@@ -16,10 +16,21 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 class SchoolResource extends Resource
 {
     protected static ?string $model = School::class;
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-building-office-2';
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withCount([
+                'students as active_students_count' => fn (Builder $query): Builder => $query->where('is_active', true),
+                'classes as active_classes_count' => fn (Builder $query): Builder => $query->where('is_active', true),
+                'subjects as active_subjects_count' => fn (Builder $query): Builder => $query->where('is_active', true),
+            ]);
+    }
+
     public static function form(Schema $schema): Schema
     {
         return $schema->components([
@@ -42,7 +53,9 @@ class SchoolResource extends Resource
         return $table->columns([
             TextColumn::make('name')->searchable()->sortable(), TextColumn::make('slug')->copyable(),
             TextColumn::make('users_count')->counts('users')->label('Users'),
-            TextColumn::make('students_count')->counts('students')->label('Students'),
+            TextColumn::make('active_students_count')->label('Active students')->sortable(),
+            TextColumn::make('active_classes_count')->label('Active classes')->sortable(),
+            TextColumn::make('active_subjects_count')->label('Active subjects')->sortable(),
             IconColumn::make('is_active')->boolean(), TextColumn::make('created_at')->dateTime()->sortable(),
         ])->recordActions([EditAction::make()])->toolbarActions([BulkActionGroup::make([DeleteBulkAction::make()])]);
     }

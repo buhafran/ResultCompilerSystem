@@ -7,9 +7,6 @@ use App\Services\SchoolOwnershipGuard;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Cache\RateLimiting\Limit;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\RateLimiter;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,18 +18,11 @@ class AppServiceProvider extends ServiceProvider
         Model::preventSilentlyDiscardingAttributes(! app()->isProduction());
 
         if (app()->isProduction()) {
-	    URL::forceRootUrl(config('app.url'));
-	    URL::forceScheme('https');           
+            URL::forceScheme('https');
         }
 
         RouteBinding::register();
         SchoolOwnershipGuard::register();
-      
-            // Define the missing 'api' rate limiter
-        RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
-        });
-        
     }
 }
 

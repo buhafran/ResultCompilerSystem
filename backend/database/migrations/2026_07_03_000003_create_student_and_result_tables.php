@@ -39,7 +39,7 @@ return new class extends Migration
                 ['school_id', 'user_id', 'academic_term_id', 'school_class_id', 'subject_id'],
                 'teacher_assignment_unique'
             );
-            $table->index(['school_id', 'academic_term_id', 'school_class_id'],'teach_asgms_school_id_acad_term_id_school_class_idx');
+            $table->index(['school_id', 'academic_term_id', 'school_class_id']);
         });
 
         Schema::create('result_entries', function (Blueprint $table): void {

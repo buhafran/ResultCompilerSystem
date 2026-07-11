@@ -6,7 +6,10 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Pages\Dashboard;
+use App\Filament\Platform\Pages\Dashboard;
+use App\Filament\Platform\Widgets\PlatformOverviewStats;
+use App\Filament\Platform\Widgets\PlatformPublicationStatusChart;
+use App\Filament\Platform\Widgets\SchoolActiveStudentsChart;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
@@ -31,6 +34,11 @@ class PlatformPanelProvider extends PanelProvider
             ->colors(['primary' => Color::Indigo])
             ->discoverResources(in: app_path('Filament/Platform/Resources'), for: 'App\\Filament\\Platform\\Resources')
             ->pages([Dashboard::class])
+            ->widgets([
+                PlatformOverviewStats::class,
+                SchoolActiveStudentsChart::class,
+                PlatformPublicationStatusChart::class,
+            ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

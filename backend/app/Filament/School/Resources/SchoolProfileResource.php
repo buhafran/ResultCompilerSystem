@@ -28,7 +28,7 @@ class SchoolProfileResource extends Resource
     protected static bool $isScopedToTenant = false;
     protected static ?string $navigationLabel = 'School Profile';
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-building-library';
-    protected static string|UnitEnum|null $navigationGroup= 'School Website';
+    protected static string|UnitEnum|null $navigationGroup = 'School Website';
 
     public static function getEloquentQuery(): Builder
     {
@@ -65,6 +65,15 @@ class SchoolProfileResource extends Resource
                 FileUpload::make('principal_signature_path')->image()->disk('public')->directory('schools/signatures')->visibility('public')->maxSize(3072),
                 DatePicker::make('next_term_begins_on'),
             ])->columns(2),
+
+            Section::make('Result sheet options')
+                ->description('Control what appears on report sheets generated for this school.')
+                ->schema([
+                    Toggle::make('settings.results.show_class_position')
+                        ->label('Show student class position')
+                        ->helperText('When disabled, class position is hidden from individual report sheets and combined report-card PDFs.')
+                        ->default(true),
+                ]),
             Section::make('Landing-page slider')
                 ->description('Enable the slider after adding at least one active image under Landing Page Slides.')
                 ->schema([

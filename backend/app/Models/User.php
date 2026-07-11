@@ -31,10 +31,6 @@ class User extends Authenticatable implements FilamentUser, HasTenants
             'is_super_admin' => 'boolean',
         ];
     }
-    public function teacherAssignments()
-    {
-        return $this->hasMany(TeacherAssignment::class);
-    }
 
     public function schools(): BelongsToMany
     {
@@ -62,7 +58,10 @@ class User extends Authenticatable implements FilamentUser, HasTenants
         return $this->belongsTo(School::class, 'last_school_id');
     }
 
-
+    public function teacherAssignments(): HasMany
+    {
+        return $this->hasMany(TeacherAssignment::class);
+    }
 
     public function accessibleSchools(): Collection
     {
@@ -119,5 +118,4 @@ class User extends Authenticatable implements FilamentUser, HasTenants
             true,
         );
     }
-    
 }

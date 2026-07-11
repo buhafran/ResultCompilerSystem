@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="<?php echo e($school->about ?: 'Official website and result portal for '.$school->name); ?>">
+    <title><?php echo e($school->name); ?></title>
+    <style>
+        :root{--ink:#102a43;--muted:#627d98;--brand:#087f5b;--brand-dark:#064e3b;--soft:#e8f5f0;font-family:Inter,ui-sans-serif,system-ui,sans-serif}
+        *{box-sizing:border-box}body{margin:0;color:var(--ink);background:#f7fafc}.nav{display:flex;justify-content:space-between;align-items:center;max-width:1180px;margin:auto;padding:20px}.identity{display:flex;gap:12px;align-items:center;font-weight:900}.logo{width:56px;height:56px;border-radius:14px;object-fit:contain;background:white;border:1px solid #dce7ef;padding:5px}.nav a,.cta{background:var(--brand);color:white;padding:12px 18px;border-radius:11px;text-decoration:none;font-weight:800}.hero-shell{max-width:1180px;margin:22px auto 0;padding:0 20px}.hero{min-height:560px;border-radius:32px;overflow:hidden;position:relative;background:linear-gradient(135deg,#073b3a,#087f5b 62%,#21a179);color:#fff}.hero-static{padding:64px;display:flex;flex-direction:column;justify-content:center}.hero-static:after{content:"";position:absolute;width:420px;height:420px;border-radius:50%;border:86px solid #ffffff17;right:-80px;bottom:-160px}.hero h1{font-size:clamp(42px,7vw,76px);max-width:840px;line-height:1.01;margin:12px 0 20px}.hero p{font-size:20px;line-height:1.7;max-width:720px;color:#dbfff3}.tag{display:inline-block;width:max-content;padding:8px 12px;border:1px solid #ffffff55;border-radius:999px;font-weight:700}.hero .cta{display:inline-block;width:max-content;margin-top:18px;background:white;color:var(--brand);position:relative;z-index:2}.slider{height:560px;position:relative}.slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .65s ease,visibility .65s ease;background:#073b3a}.slide.active{opacity:1;visibility:visible}.slide img{width:100%;height:100%;object-fit:cover}.slide:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,40,37,.88),rgba(3,40,37,.48) 58%,rgba(3,40,37,.12))}.slide-content{position:absolute;z-index:2;left:clamp(28px,6vw,74px);top:50%;transform:translateY(-50%);max-width:680px;padding-right:24px}.slide-content h1{font-size:clamp(40px,6vw,70px)}.slider-controls{position:absolute;z-index:4;left:clamp(28px,6vw,74px);right:26px;bottom:28px;display:flex;justify-content:space-between;align-items:center}.dots{display:flex;gap:8px}.dot{width:11px;height:11px;border-radius:999px;border:1px solid #fff;background:#ffffff55;cursor:pointer;padding:0}.dot.active{width:32px;background:#fff}.arrow-group{display:flex;gap:8px}.arrow{width:42px;height:42px;border-radius:50%;border:1px solid #ffffff99;background:#132f2b99;color:#fff;font-size:21px;cursor:pointer}.grid{max-width:1180px;margin:26px auto 60px;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.tile{background:white;padding:28px;border-radius:20px;border:1px solid #e1eaf0}.tile h3{margin:0 0 10px}.tile p{color:var(--muted);line-height:1.6}.footer{text-align:center;color:var(--muted);padding:24px}@media(max-width:760px){.hero-shell{padding:0 12px}.hero{border-radius:24px}.hero-static{padding:36px 24px}.slider{height:520px}.slide-content{left:24px}.grid{grid-template-columns:1fr;padding:0 12px}.nav{padding:16px}.identity span{max-width:190px}.hero h1,.slide-content h1{font-size:42px}.slider-controls{left:24px;bottom:20px}}
+    </style>
+</head>
+<body>
+<nav class="nav">
+    <div class="identity">
+        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($school->logo_path): ?><img class="logo" src="<?php echo e(Storage::disk('public')->url($school->logo_path)); ?>" alt="<?php echo e($school->name); ?> logo"><?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+        <span><?php echo e($school->name); ?></span>
+    </div>
+    <a href="<?php echo e(route('school.portal.login',$school)); ?>">View result</a>
+</nav>
+<main>
+    <section class="hero-shell">
+        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($sliderEnabled && $slides->isNotEmpty()): ?>
+            <div class="hero slider" id="school-slider" data-interval="<?php echo e(max(3, min(15, (int) $school->setting('landing.slider_interval_seconds', 6))) * 1000); ?>" aria-label="School announcements">
+                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $slides; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $slide): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
+                    <article class="slide <?php echo e($loop->first ? 'active' : ''); ?>" data-index="<?php echo e($loop->index); ?>" aria-hidden="<?php echo e($loop->first ? 'false' : 'true'); ?>">
+                        <img src="<?php echo e(Storage::disk('public')->url($slide->image_path)); ?>" alt="">
+                        <div class="slide-content">
+                            <span class="tag"><?php echo e($school->motto ?: 'Learning • Character • Excellence'); ?></span>
+                            <h1><?php echo e($slide->title); ?></h1>
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($slide->subtitle): ?><p><?php echo e($slide->subtitle); ?></p><?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                            <?php
+                                $slideUrl = $slide->button_url && \Illuminate\Support\Str::startsWith($slide->button_url, ['https://', 'http://'])
+                                    ? $slide->button_url
+                                    : route('school.portal.login', $school);
+                            ?>
+                            <a class="cta" href="<?php echo e($slideUrl); ?>"><?php echo e($slide->button_text ?: 'Open student result portal'); ?> →</a>
+                        </div>
+                    </article>
+                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
+                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($slides->count() > 1): ?>
+                    <div class="slider-controls">
+                        <div class="dots" aria-label="Choose slide">
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $slides; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $slide): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
+                                <button class="dot <?php echo e($loop->first ? 'active' : ''); ?>" type="button" data-go="<?php echo e($loop->index); ?>" aria-label="Show slide <?php echo e($loop->iteration); ?>"></button>
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
+                        </div>
+                        <div class="arrow-group">
+                            <button class="arrow" type="button" data-prev aria-label="Previous slide">‹</button>
+                            <button class="arrow" type="button" data-next aria-label="Next slide">›</button>
+                        </div>
+                    </div>
+                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+            </div>
+        <?php else: ?>
+            <section class="hero hero-static">
+                <span class="tag"><?php echo e($school->motto ?: 'Learning • Character • Excellence'); ?></span>
+                <h1>Welcome to <?php echo e($school->name); ?></h1>
+                <p><?php echo e($school->about ?: 'A learning community committed to academic excellence, responsible character, and the success of every student.'); ?></p>
+                <a class="cta" href="<?php echo e(route('school.portal.login',$school)); ?>">Open student result portal →</a>
+            </section>
+        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+    </section>
+    <section class="grid">
+        <article class="tile"><h3>Student result portal</h3><p>Students and parents can securely access only results officially released by the school.</p></article>
+        <article class="tile"><h3>Verified report cards</h3><p>Every published report has a unique verification code and an immutable compilation snapshot.</p></article>
+        <article class="tile"><h3>School contact</h3><p><?php echo e($school->address ?: 'Address available from the school office.'); ?><br><?php echo e($school->phone); ?> <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($school->email): ?><br><?php echo e($school->email); ?><?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?></p></article>
+    </section>
+</main>
+<footer class="footer">© <?php echo e(now()->year); ?> <?php echo e($school->name); ?></footer>
+<?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($sliderEnabled && $slides->count() > 1): ?>
+<script>
+(() => {
+    const slider = document.getElementById('school-slider');
+    if (!slider) return;
+    const slides = [...slider.querySelectorAll('.slide')];
+    const dots = [...slider.querySelectorAll('.dot')];
+    let index = 0;
+    let timer;
+    const show = (next) => {
+        index = (next + slides.length) % slides.length;
+        slides.forEach((slide, i) => {
+            const active = i === index;
+            slide.classList.toggle('active', active);
+            slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+        });
+        dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+    };
+    const start = () => {
+        clearInterval(timer);
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            timer = setInterval(() => show(index + 1), Number(slider.dataset.interval || 6000));
+        }
+    };
+    slider.querySelector('[data-prev]')?.addEventListener('click', () => { show(index - 1); start(); });
+    slider.querySelector('[data-next]')?.addEventListener('click', () => { show(index + 1); start(); });
+    dots.forEach(dot => dot.addEventListener('click', () => { show(Number(dot.dataset.go)); start(); }));
+    slider.addEventListener('mouseenter', () => clearInterval(timer));
+    slider.addEventListener('mouseleave', start);
+    start();
+})();
+</script>
+<?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+</body>
+</html>
+<?php /**PATH /Users/buhafran/iCloud Drive (Archive)/Documents/Code/ResultSystem-2/backend/resources/views/landing/school.blade.php ENDPATH**/ ?>

@@ -17,14 +17,13 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use \UnitEnum;
 
 class SchoolSlideResource extends TenantManagedResource
 {
     protected static ?string $model = SchoolSlide::class;
     protected static ?string $navigationLabel = 'Landing Page Slides';
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-photo';
-    protected static string|UnitEnum|null $navigationGroup = 'School Website';
+    protected static \UnitEnum|string|null $navigationGroup = 'School Website';
 
     public static function form(Schema $schema): Schema
     {

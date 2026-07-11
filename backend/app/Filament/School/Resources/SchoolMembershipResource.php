@@ -38,13 +38,11 @@ class SchoolMembershipResource extends TenantManagedResource
 
                     return User::query()
                         ->where(function (Builder $query) use ($schoolId, $record): void {
-                            $query->whereDoesntHave('memberships')
-                            ->where('last_school_id','=',$schoolId);
+                            $query->whereDoesntHave('memberships');
 
-                            // if ($record?->user_id) {
-                        
-                            //     $query->orWhereKey($record->user_id);
-                            // }
+                            if ($record?->user_id) {
+                                $query->orWhereKey($record->user_id);
+                            }
                         })
                         ->orderBy('name')
                         ->limit(250)

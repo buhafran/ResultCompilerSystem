@@ -83,6 +83,7 @@ return new class extends Migration
             $table->foreignId('school_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->string('code', 40)->nullable();
+            $table->string('subtitle')->nullable();
             $table->boolean('is_active')->default(true)->index();
             $table->timestamps();
             $table->unique(['school_id', 'name']);

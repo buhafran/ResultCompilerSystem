@@ -10,17 +10,4 @@ class TeacherAssignment extends Model
     public function term(): BelongsTo { return $this->belongsTo(AcademicTerm::class, 'academic_term_id'); }
     public function schoolClass(): BelongsTo { return $this->belongsTo(SchoolClass::class); }
     public function subject(): BelongsTo { return $this->belongsTo(Subject::class); }
-
-    public function hasAssignment(
-        TeacherAssignment $assignment
-    ): bool {
-        if ($this->is_super_admin) {
-            return true;
-        }
-    
-        return TeacherAssignment::query()
-            ->whereKey($assignment->id)
-            ->where('user_id', $this->id)
-            ->exists();
-    }
 }

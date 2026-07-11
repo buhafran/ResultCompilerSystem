@@ -23,6 +23,11 @@ class SubjectResource extends TenantManagedResource
         return $schema->components([
             TextInput::make('name')->required()->unique(ignoreRecord: true, modifyRuleUsing: fn ($rule) => $rule->where('school_id', Filament::getTenant()->id)),
             TextInput::make('code')->maxLength(40)->unique(ignoreRecord: true, modifyRuleUsing: fn ($rule) => $rule->where('school_id', Filament::getTenant()->id)),
+            TextInput::make('subtitle')
+                ->label('Subtitle / translation')
+                ->helperText('Optional. Shown under the subject name on report sheets, e.g. Hausa translation.')
+                ->maxLength(255)
+                ->columnSpanFull(),
             Toggle::make('is_active')->default(true),
         ]);
     }
@@ -32,6 +37,7 @@ class SubjectResource extends TenantManagedResource
         return $table->columns([
             TextColumn::make('name')->searchable()->sortable(),
             TextColumn::make('code')->searchable(),
+            TextColumn::make('subtitle')->label('Subtitle')->searchable()->toggleable(),
             TextColumn::make('classes_count')->counts('classes'),
             IconColumn::make('is_active')->boolean(),
         ])->recordActions([EditAction::make()]);
