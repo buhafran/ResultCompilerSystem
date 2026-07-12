@@ -23,7 +23,7 @@ class SchoolSlideResource extends TenantManagedResource
     protected static ?string $model = SchoolSlide::class;
     protected static ?string $navigationLabel = 'Landing Page Slides';
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-photo';
-    protected static \UnitEnum|string|null $navigationGroup = 'School Website';
+    protected static string | \UnitEnum | null $navigationGroup = 'School Website';
 
     public static function form(Schema $schema): Schema
     {

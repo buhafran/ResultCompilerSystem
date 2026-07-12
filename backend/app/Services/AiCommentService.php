@@ -71,71 +71,11 @@ final class AiCommentService
     private function fallback(float $average): array
     {
         [$teacher, $principal] = match (true) {
-            // 90% - 100%: Exceptional / Elite
-            $average >= 90 => [
-                'An exceptional performance reflecting profound understanding and academic maturity. Exceptional work.',
-                'Superb leadership and academic excellence. You set a magnificent standard for your peers.'
-            ],
-        
-            // 85% - 89%: Excellent / High Distinction
-            $average >= 85 => [
-                'An excellent standard of work. Your dedication to mastering complex concepts is highly commendable.',
-                'Outstanding achievements this term. Continue to channel this impressive work ethic and curiosity.'
-            ],
-        
-            // 80% - 84%: Very Good to Excellent
-            $average >= 80 => [
-                'A very strong performance. Maintain these robust study habits and continue to push your boundaries.',
-                'Great progress this term. Your consistency and disciplined approach are paying off handsomely.'
-            ],
-        
-            // 75% - 79%: Solid Commendable / Above Average
-            $average >= 75 => [
-                'A highly commendable effort. You demonstrate a strong grasp of the material; keep aiming for top marks.',
-                'Very pleasing results. With continued focus and refinement, you are well on your way to excellence.'
-            ],
-        
-            // 70% - 74%: Good / Competent
-            $average >= 70 => [
-                'A good, consistent performance. Continue revising regularly to solidify your mastery of finer details.',
-                'A successful term. Keep building on these steady results by maintaining active classroom engagement.'
-            ],
-        
-            // 65% - 69%: Developing / High Pass
-            $average >= 65 => [
-                'A pleasing performance showing clear capability. Target your minor weak areas to elevate your grade further.',
-                'Good overall progress. Greater attention to detail and proactive revision will unlock your full potential.'
-            ],
-        
-            // 60% - 64%: Satisfactory / Clear Room for Improvement
-            $average >= 60 => [
-                'A satisfactory effort, though there is clear potential for higher marks. Focus extra attention on lower-scoring topics.',
-                'Steady progress made, but a more rigorous and organized study routine will yield much stronger outcomes.'
-            ],
-        
-            // 55% - 59%: Pass / Approaching Average
-            $average >= 55 => [
-                'A fair performance. A more structured revision plan and active participation in class are highly recommended.',
-                'You are holding steady, but there is definite room for growth. Increase your focus in the coming term.'
-            ],
-        
-            // 50% - 54%: Marginal Pass
-            $average >= 50 => [
-                'You have met the basic requirements, but regular practice and seeking immediate help on difficult topics are vital.',
-                'A marginal pass. Work closely with your teachers, clear up misunderstandings early, and practice consistently.'
-            ],
-        
-            // 40% - 49%: Needs Immediate Support / Narrow Fail
-            $average >= 40 => [
-                'More focused support, structured revision, and daily practice are urgently required. Begin with the foundational concepts.',
-                'Do not be discouraged by this setback. Regular attendance, focused intervention, and a fresh routine can turn this around.'
-            ],
-        
-            // Below 40%: Serious Concern
-            default => [
-                'Critical gaps in understanding need to be addressed immediately. A personalized learning plan and close monitoring are essential.',
-                'A challenging term. We urge a parent-teacher consultation to establish a collaborative plan to support your academic progress.'
-            ],
+            $average >= 80 => ['An excellent performance. Maintain the strong study habits and continue to seek deeper understanding.', 'Outstanding progress this term. Keep demonstrating consistency, curiosity, and discipline.'],
+            $average >= 70 => ['A very good performance. Continue revising consistently and aim for even greater mastery.', 'Commendable work this term. Keep building on these strong results.'],
+            $average >= 60 => ['A good performance with clear potential for improvement. Give extra attention to the lower-scoring subjects.', 'Good progress. Greater consistency and focused revision will produce stronger outcomes.'],
+            $average >= 50 => ['A fair performance. A structured revision plan and regular practice are recommended.', 'There is room for growth. Work closely with your teachers and practise consistently.'],
+            default => ['More focused support and regular practice are needed. Begin with the weakest subjects and celebrate steady progress.', 'Do not be discouraged. Consistent effort, guidance, and improved study routines can lead to meaningful progress.'],
         };
         return ['teacher_comment' => $teacher, 'principal_comment' => $principal, 'source' => 'deterministic'];
     }

@@ -20,7 +20,6 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use \UnitEnum;
 
 class SchoolProfileResource extends Resource
 {
@@ -28,7 +27,7 @@ class SchoolProfileResource extends Resource
     protected static bool $isScopedToTenant = false;
     protected static ?string $navigationLabel = 'School Profile';
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-building-library';
-    protected static string|UnitEnum|null $navigationGroup = 'School Website';
+    protected static string | \UnitEnum | null $navigationGroup = 'School Website';
 
     public static function getEloquentQuery(): Builder
     {

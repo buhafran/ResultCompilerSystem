@@ -4,6 +4,7 @@ use App\Http\Controllers\Web\ResultViewController;
 use App\Http\Controllers\Web\SchoolLandingController;
 use App\Http\Controllers\Web\StudentPortalController;
 use App\Http\Controllers\Web\StudentDataController;
+use App\Http\Controllers\Web\SchoolSetupDataController;
 use Illuminate\Support\Facades\Route;
 Route::get('/', HomeController::class)->name('home');
 Route::get('/schools/{school:slug}',SchoolLandingController::class)->name('school.landing');
@@ -22,4 +23,6 @@ Route::middleware('auth')->group(function (): void {
 Route::middleware('auth')->group(function (): void {
     Route::get('/admin/schools/{school:slug}/students/template', [StudentDataController::class, 'template'])->name('students.template');
     Route::get('/admin/schools/{school:slug}/students/export', [StudentDataController::class, 'export'])->name('students.export');
+    Route::get('/admin/schools/{school:slug}/classes/template', [SchoolSetupDataController::class, 'classTemplate'])->name('classes.template');
+    Route::get('/admin/schools/{school:slug}/subjects/template', [SchoolSetupDataController::class, 'subjectTemplate'])->name('subjects.template');
 });

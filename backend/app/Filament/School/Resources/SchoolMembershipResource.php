@@ -41,7 +41,7 @@ class SchoolMembershipResource extends TenantManagedResource
                             $query->whereDoesntHave('memberships');
 
                             if ($record?->user_id) {
-                                $query->orWhereKey($record->user_id);
+                                $query->orWhere('id', $record->user_id);
                             }
                         })
                         ->orderBy('name')
@@ -65,7 +65,7 @@ class SchoolMembershipResource extends TenantManagedResource
                             $query->whereDoesntHave('memberships');
 
                             if ($record?->user_id) {
-                                $query->orWhereKey($record->user_id);
+                                $query->orWhere('id', $record->user_id);
                             }
                         })
                         ->orderBy('name')
