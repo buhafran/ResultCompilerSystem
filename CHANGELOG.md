@@ -1,19 +1,25 @@
 # Changelog
+## v1.2.5 - Livewire Upload 401 Fix
 
-## 1.1.0 — 3 July 2026
+- Added Laravel trusted proxy configuration for Apache/Nginx HTTPS deployments.
+- Added Livewire temporary upload configuration for local private temporary storage and 30MB upload validation.
+- Added production upload troubleshooting documentation for 401 errors during file attachment.
+- Updated environment example with production session and Livewire upload settings.
 
-- Added a tenant-owned landing-page slider with per-school enablement, ordering, images, captions and call-to-action links.
-- Added a school dashboard with current-term status, student/class/subject counts, accurate score-entry completion, publication status and class-average charts.
-- Corrected school membership creation so unassigned users appear, new users can be created inline, and cross-school grants remain controlled by the platform super administrator.
-- Corrected term creation by injecting and validating the current school on every tenant-owned create workflow.
-- Removed old-database import functionality; the package now assumes fresh academic data entry.
-- Added student CSV template download, bulk create/update, row-level error reporting and student-list CSV export.
-- Added A3 class broadsheet PDF and one combined A4 report-card PDF for a complete class.
-- Enforced active school memberships in Filament tenancy, downloads and the teacher API.
-- Changed compilation to lock the term before taking immutable snapshots.
-- Improved mobile conflict handling so unsynchronized edits remain visible and recoverable; locked terms are read-only.
-- Updated custom actions to the Filament 5 `schema()` API and strengthened upload, URL and CSV-export safety.
+## 1.2.2 - 2026-07-12
 
+### Added
+- Bulk CSV upload for school classes, including a template populated with common Nigerian class names.
+- Bulk CSV upload for subjects, including a template populated with common subject names and codes.
+- Multiple-subject selection when creating class subjects.
+- Multiple-subject selection when creating teacher assignments.
+- Bulk selection checkboxes for generating AI result comments for multiple students.
+
+### Changed
+- Updated school website navigation-group property typing to `string | \UnitEnum | null` for Filament compatibility.
+- Registered the API rate limiter in `AppServiceProvider` using `RateLimiter::for('api', ...)`.
+- Replaced unsupported `orWhereKey()` calls in school membership user selection with `orWhere('id', ...)`.
+- Reapplied the Docker production build fix so Composer runs with required PHP extensions such as `intl`.
 
 ## 1.2.0 - 2026-07-11
 
@@ -31,3 +37,11 @@
 
 ### Database
 - Added nullable `subtitle` column to `subjects`.
+
+## v1.2.4 - File upload runtime fix
+
+- Added production PHP upload limits for Docker (`upload_max_filesize=25M`, `post_max_size=30M`).
+- Increased Docker Nginx upload body limit to 30M.
+- Ensured Livewire temporary upload and import directories are created at container startup.
+- Ensured public upload directories for logos, slides, signatures, and student photos are created at startup.
+- Kept Docker build fixes from v1.2.3.

@@ -1,50 +1,52 @@
-# Result System
+# Result System v1.2.1 Docker Build Fix
 
-**Release:** 1.1.0 — see [`CHANGELOG.md`](CHANGELOG.md) for the correction history and [`docs/VALIDATION_REPORT.md`](docs/VALIDATION_REPORT.md) for validation scope.
+This patch fixes the Docker build after v1.2.0 restored the older Dockerfile.
 
-A production-oriented **multitenant school result compilation platform** built with Laravel 13, Filament 5, and an Expo teacher mobile application.
+## What it fixes
 
-## Included modules
+- Composer now runs inside a PHP image with `ext-intl`, which Filament 5 requires.
+- `composer.*` is copied instead of only `composer.json`, so `composer.lock` is used when available.
+- If `composer.lock` is missing, the image can resolve dependencies once, then you should copy the generated lock file back into `backend/composer.lock` and commit it.
+- Queue and scheduler reuse the already-built local application image instead of rebuilding or pulling `result-system-app`.
+- Stale Laravel cache files are removed so missing dev packages such as Laravel Pail are not loaded in production.
+- Entry point runs migrations before `optimize:clear` to avoid database-cache table errors on fresh databases.
+- Docker Nginx preserves forwarded HTTPS headers from Apache for Livewire URL generation.
 
-- Separate platform super-administration and tenant-aware school administration panels.
-- Explicit school access grants for every user, with school-level roles and enforced tenant filtering.
-- Configurable school landing page with enable/disable controls, image slides, ordering, call-to-action buttons, and responsive presentation.
-- School dashboard showing the current session/term, active students, classes, subjects, score-entry completion, publication status, and latest class averages.
-- Sessions, terms, classes, subjects, class-subject mappings, teachers, assignments, students, result templates, comments, compilation, review, and release.
-- Individual student entry plus CSV template download, bulk CSV upload/update, and student-list export.
-- CA 30% and Examination 70% entry with absence handling, optimistic locking, assignment authorization, and offline mobile synchronization.
-- Transactional result compilation, tie-safe ranking, immutable publication snapshots, release history, and audit logs.
-- Per-student A4 report cards, combined class report-card PDF, and A3 class broadsheet containing every subject.
-- PIN-protected student portal and public result verification.
-- Gemini-assisted comment drafts using anonymous performance information, with a deterministic fallback.
-- Docker deployment, security guidance, API documentation, automated tests, and UAT checklists.
+## Files to replace
 
-## Project layout
+Copy these files into your project:
 
-```text
-ResultSystem/
-├── backend/       Laravel, Filament, APIs, landing pages, student portal and PDF reports
-├── mobile/        Expo/React Native offline-capable teacher application
-├── deploy/        Docker Compose, PHP-FPM and Nginx files
-├── docs/          Architecture, API, security, deployment and validation guides
-└── Makefile       Common deployment and validation commands
+- `backend/Dockerfile`
+- `backend/docker/entrypoint.sh`
+- `backend/.dockerignore`
+- `deploy/docker-compose.yml`
+- `deploy/nginx/default.conf`
+- `Makefile`
+
+## Commands
+
+From the project root:
+
+```bash
+DC="docker compose --env-file deploy/.env -f deploy/docker-compose.yml"
+
+$DC down --remove-orphans
+$DC build --no-cache app
+$DC up -d --no-build
+$DC logs --tail=200 app
 ```
 
-## Fast deployment
+Do not use `down -v` unless you intentionally want to delete the MySQL volume.
 
-1. Read [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
-2. Copy `backend/.env.example` to `backend/.env` and configure the production database, mail, queue, storage and Gemini settings.
-3. Run `make up` for Docker deployment, or install Composer and Node dependencies for a conventional deployment.
-4. Create the first platform administrator with `php artisan platform:make-admin`.
-5. Sign in at `/platform`, create a school, and grant school access to administrators and teachers.
-6. Open the school panel at `/admin/school/{school-slug}` and enter fresh academic data or bulk-upload students.
+## After successful build, save composer.lock
 
-## Important URLs
+If the project still has no lock file, copy it from the built image/container and commit it:
 
-- Platform administration: `/platform`
-- School administration: `/admin` or `/admin/school/{school-slug}`
-- Public school page: `/schools/{school-slug}`
-- Student portal: `/schools/{school-slug}/portal`
-- Teacher API: `/api/v1`
+```bash
+$DC cp app:/var/www/html/composer.lock backend/composer.lock
+ls -lh backend/composer.lock
+git add backend/composer.lock
+git commit -m "Add composer lock file for reproducible production builds"
+```
 
-Do not commit `.env`, exported PIN files, uploaded student photographs, or production database backups.
+Then future builds will install exact locked versions rather than resolving dependencies on the server.
