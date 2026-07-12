@@ -1,0 +1,234 @@
+[2026-07-12 10:28:57] production.ERROR: Command "filament:updaye" is not defined.
+
+Did you mean one of these?
+    filament:about
+    filament:assets
+    filament:cache-components
+    filament:check-translations
+    filament:clear-cached-components
+    filament:cluster
+    filament:column
+    filament:component
+    filament:custom-block
+    filament:entry
+    filament:exporter
+    filament:field
+    filament:form
+    filament:form-field
+    filament:form-layout
+    filament:importer
+    filament:infolist
+    filament:infolist-entry
+    filament:infolist-layout
+    filament:infolist-schema
+    filament:install
+    filament:issue
+    filament:layout
+    filament:livewire-form
+    filament:livewire-schema
+    filament:livewire-table
+    filament:make-cluster
+    filament:make-issue
+    filament:make-page
+    filament:make-panel
+    filament:make-relation-manager
+    filament:make-resource
+    filament:make-theme
+    filament:make-user
+    filament:make-widget
+    filament:optimize
+    filament:optimize-clear
+    filament:page
+    filament:panel
+    filament:relation-manager
+    filament:resource
+    filament:rich-content-custom-block
+    filament:rich-editor-custom-block
+    filament:schema
+    filament:schema-component
+    filament:schema-layout
+    filament:table
+    filament:table-column
+    filament:theme
+    filament:upgrade
+    filament:user
+    filament:widget {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"filament:updaye\" is not defined.
+
+Did you mean one of these?
+    filament:about
+    filament:assets
+    filament:cache-components
+    filament:check-translations
+    filament:clear-cached-components
+    filament:cluster
+    filament:column
+    filament:component
+    filament:custom-block
+    filament:entry
+    filament:exporter
+    filament:field
+    filament:form
+    filament:form-field
+    filament:form-layout
+    filament:importer
+    filament:infolist
+    filament:infolist-entry
+    filament:infolist-layout
+    filament:infolist-schema
+    filament:install
+    filament:issue
+    filament:layout
+    filament:livewire-form
+    filament:livewire-schema
+    filament:livewire-table
+    filament:make-cluster
+    filament:make-issue
+    filament:make-page
+    filament:make-panel
+    filament:make-relation-manager
+    filament:make-resource
+    filament:make-theme
+    filament:make-user
+    filament:make-widget
+    filament:optimize
+    filament:optimize-clear
+    filament:page
+    filament:panel
+    filament:relation-manager
+    filament:resource
+    filament:rich-content-custom-block
+    filament:rich-editor-custom-block
+    filament:schema
+    filament:schema-component
+    filament:schema-layout
+    filament:table
+    filament:table-column
+    filament:theme
+    filament:upgrade
+    filament:user
+    filament:widget at /Users/buhafran/iCloud Drive (Archive)/Documents/Code/ResultSystem-2/backend/vendor/symfony/console/Application.php:759)
+[stacktrace]
+#0 /Users/buhafran/iCloud Drive (Archive)/Documents/Code/ResultSystem-2/backend/vendor/symfony/console/Application.php(298): Symfony\\Component\\Console\\Application->find('filament:updaye')
+#1 /Users/buhafran/iCloud Drive (Archive)/Documents/Code/ResultSystem-2/backend/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#2 /Users/buhafran/iCloud Drive (Archive)/Documents/Code/ResultSystem-2/backend/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Users/buhafran/iCloud Drive (Archive)/Documents/Code/ResultSystem-2/backend/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Users/buhafran/iCloud Drive (Archive)/Documents/Code/ResultSystem-2/backend/artisan(9): Illuminate\\Foundation\\Application->handleCommand(Object(Symfony\\Component\\Console\\Input\\ArgvInput))
+#5 {main}
+"} 
+[2026-07-12 10:29:03] production.ERROR: Command "filament:update" is not defined.
+
+Did you mean one of these?
+    filament:about
+    filament:assets
+    filament:cache-components
+    filament:check-translations
+    filament:clear-cached-components
+    filament:cluster
+    filament:column
+    filament:component
+    filament:custom-block
+    filament:entry
+    filament:exporter
+    filament:field
+    filament:form
+    filament:form-field
+    filament:form-layout
+    filament:importer
+    filament:infolist
+    filament:infolist-entry
+    filament:infolist-layout
+    filament:infolist-schema
+    filament:install
+    filament:issue
+    filament:layout
+    filament:livewire-form
+    filament:livewire-schema
+    filament:livewire-table
+    filament:make-cluster
+    filament:make-issue
+    filament:make-page
+    filament:make-panel
+    filament:make-relation-manager
+    filament:make-resource
+    filament:make-theme
+    filament:make-user
+    filament:make-widget
+    filament:optimize
+    filament:optimize-clear
+    filament:page
+    filament:panel
+    filament:relation-manager
+    filament:resource
+    filament:rich-content-custom-block
+    filament:rich-editor-custom-block
+    filament:schema
+    filament:schema-component
+    filament:schema-layout
+    filament:table
+    filament:table-column
+    filament:theme
+    filament:upgrade
+    filament:user
+    filament:widget {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"filament:update\" is not defined.
+
+Did you mean one of these?
+    filament:about
+    filament:assets
+    filament:cache-components
+    filament:check-translations
+    filament:clear-cached-components
+    filament:cluster
+    filament:column
+    filament:component
+    filament:custom-block
+    filament:entry
+    filament:exporter
+    filament:field
+    filament:form
+    filament:form-field
+    filament:form-layout
+    filament:importer
+    filament:infolist
+    filament:infolist-entry
+    filament:infolist-layout
+    filament:infolist-schema
+    filament:install
+    filament:issue
+    filament:layout
+    filament:livewire-form
+    filament:livewire-schema
+    filament:livewire-table
+    filament:make-cluster
+    filament:make-issue
+    filament:make-page
+    filament:make-panel
+    filament:make-relation-manager
+    filament:make-resource
+    filament:make-theme
+    filament:make-user
+    filament:make-widget
+    filament:optimize
+    filament:optimize-clear
+    filament:page
+    filament:panel
+    filament:relation-manager
+    filament:resource
+    filament:rich-content-custom-block
+    filament:rich-editor-custom-block
+    filament:schema
+    filament:schema-component
+    filament:schema-layout
+    filament:table
+    filament:table-column
+    filament:theme
+    filament:upgrade
+    filament:user
+    filament:widget at /Users/buhafran/iCloud Drive (Archive)/Documents/Code/ResultSystem-2/backend/vendor/symfony/console/Application.php:759)
+[stacktrace]
+#0 /Users/buhafran/iCloud Drive (Archive)/Documents/Code/ResultSystem-2/backend/vendor/symfony/console/Application.php(298): Symfony\\Component\\Console\\Application->find('filament:update')
+#1 /Users/buhafran/iCloud Drive (Archive)/Documents/Code/ResultSystem-2/backend/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#2 /Users/buhafran/iCloud Drive (Archive)/Documents/Code/ResultSystem-2/backend/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Users/buhafran/iCloud Drive (Archive)/Documents/Code/ResultSystem-2/backend/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Users/buhafran/iCloud Drive (Archive)/Documents/Code/ResultSystem-2/backend/artisan(9): Illuminate\\Foundation\\Application->handleCommand(Object(Symfony\\Component\\Console\\Input\\ArgvInput))
+#5 {main}
+"} 
